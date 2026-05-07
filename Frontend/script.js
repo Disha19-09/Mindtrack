@@ -82,6 +82,7 @@ function loadMoods() {
       showWeeklyInsights(data);
       showInsights(data);
       showChart(data);
+      updateStats(data);
     })
     .catch(err => console.log(err));
 }
@@ -209,7 +210,48 @@ function showWeeklyInsights(data) {
     weeklyDiv.innerHTML += "<p>Try to relax more this week 💙</p>";
   }
 }
+function updateStats(data) {
 
+  // total check-ins
+  document.getElementById("checkins").innerText =
+    data.length;
+
+  // count moods
+  let count = {
+    happy: 0,
+    neutral: 0,
+    stressed: 0,
+    low: 0
+  };
+
+  data.forEach(entry => {
+    count[entry.mood]++;
+  });
+
+  // top mood
+  let topMood = "None";
+  let max = 0;
+
+  for (let mood in count) {
+    if (count[mood] > max) {
+      max = count[mood];
+      topMood = mood;
+    }
+  }
+
+  document.getElementById("topMood").innerText =
+    topMood;
+
+  // happy days
+  document.getElementById("happyDays").innerText =
+    count.happy;
+
+  // streak
+  const streak = calculateStreak(data);
+
+  document.getElementById("streakCount").innerText =
+    streak;
+}
 // Chart
 function showChart(data) {
   const ctx = document.getElementById("moodChart").getContext("2d");
