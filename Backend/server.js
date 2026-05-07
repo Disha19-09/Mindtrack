@@ -16,7 +16,16 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-// Schema
+// User Schema (moved up)
+const userSchema = new mongoose.Schema({
+  username: String,
+  email: String,
+  password: String
+});
+
+const User = mongoose.model("User", userSchema);
+
+// Mood Schema
 const moodSchema = new mongoose.Schema({
   mood: String,
   note: String,
@@ -27,6 +36,9 @@ const moodSchema = new mongoose.Schema({
   }
 });
 
+const Mood = mongoose.model("Mood", moodSchema);
+
+// Auth middleware
 function auth(req, res, next) {
   const token = req.headers.authorization;
 
@@ -36,49 +48,14 @@ function auth(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
     req.userId = decoded.id;
-
     next();
   } catch (err) {
     res.status(401).send("Invalid token");
   }
 }
 
-const Mood = mongoose.model("Mood", moodSchema);
-
-// POST
-app.post("/mood", auth, async (req, res) => {
-  const { mood, note } = req.body;
-
-  try {
-    await Mood.create({
-      mood,
-      note,
-      userId: req.userId
-    });
-
-    res.send("Mood saved");
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Error saving mood");
-  }
-});
-
-// GET
-app.get("/moods", auth, async (req, res) => {
-  try {
-    const data = await Mood.find({
-      userId: req.userId
-    });
-
-    res.json(data);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Error fetching moods");
-  }
-});
-
+// Routes
 app.post("/signup", async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -98,8 +75,6 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-
-
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -115,22 +90,43 @@ app.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
     res.json({ token });
-
   } catch (err) {
     console.log(err);
     res.status(500).send("Login error");
   }
 });
 
-const userSchema = new mongoose.Schema({
-  username: String,
-  email: String,
-  password: String
+app.post("/mood", auth, async (req, res) => {
+  const { mood, note } = req.body;
+
+  try {
+    await Mood.create({
+      mood,
+      note,
+      userId: req.userId
+    });
+
+    res.send("Mood saved");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error saving mood");
+  }
 });
 
-const User = mongoose.model("User", userSchema);
+app.get("/moods", auth, async (req, res) => {
+  try {
+    const data = await Mood.find({
+      userId: req.userId
+    });
 
-// start server
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error fetching moods");
+  }
+});
+
+// Start server (fixed port)
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server running");
 });

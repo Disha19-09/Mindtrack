@@ -22,7 +22,7 @@ function saveMood() {
 
   const note = document.getElementById("note").value;
 
-  fetch("http://localhost:3000/mood", {
+  fetch("https://mindtrack-9n7p.onrender.com/mood", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -56,7 +56,7 @@ function saveMood() {
 
 // Load mood history
 function loadMoods() {
-    fetch("http://localhost:3000/moods", {
+    fetch("https://mindtrack-9n7p.onrender.com/moods", {
       headers: {
         "Authorization": localStorage.getItem("token")
       }
