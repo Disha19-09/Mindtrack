@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MindTrack</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <!-- 🔵 SIDEBAR -->
+  <div class="sidebar">
+    <h2>MindTrack 💙</h2>
+    
+    <ul>
+      <li>🏠 Home</li>
+      <li>📊 Mood Graph</li>
+      <li>📝 Notes</li>
+      <li>🎧 Music</li>
+      <li>💡 Insights</li>
+      <li>🧘 Exercises</li>
+      <li onclick="logout()">🚪 Logout</li>
+    </ul>
+  </div>
+
+  <!-- 🟡 MAIN -->
+  <div class="main">
+
+    <!-- TOP TEXT -->
+    <div class="topbar">
+      <h3>Good morning 🌸</h3>
+      <h1>How are you feeling today?</h1>
+    </div>
+
+    <!-- 🔥 TOP ROW -->
+    <div class="top-row">
+
+      <!-- MOOD CHECK -->
+      <div class="card mood-card">
+        <div class="moods">
+          <button onclick="selectMood('happy',event)">😊 Happy</button>
+          <button onclick="selectMood('neutral',event)">😐 Neutral</button>
+          <button onclick="selectMood('stressed',event)">😔 Stressed</button>
+          <button onclick="selectMood('low',event)">😞 Low</button>
+        </div>
+
+        <textarea id="note" placeholder="Write your thoughts..."></textarea>
+
+        <button onclick="saveMood()">Save</button>
+
+        <p id="message"></p>
+        <p id="feedback"></p>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats">
+        <div class="card small">🔥 7<br>Day streak</div>
+        <div class="card small">24<br>Check-ins</div>
+        <div class="card small">😊 Top mood</div>
+        <div class="card small">5/7 Happy days ✨</div>
+      </div>
+
+      <!-- STREAK -->
+      <div class="card streak-card">
+        <h3>Your streak 🔥</h3>
+        <p id="streak"></p>
+      </div>
+
+    </div>
+
+  <div class="middle-row">
+
+    <!-- GRAPH -->
+    <div class="card graph-card">
+      <h3>📊 Mood Graph</h3>
+      <div class="chart-container">
+        <canvas id="moodChart"></canvas>
+      </div>
+    </div>
+
+    <!-- WEEKLY -->
+    <div class="card">
+      <h3>📅 Weekly Insights</h3>
+      <div id="weekly"></div>
+    </div>
+
+    <!-- INSIGHTS -->
+    <div class="card">
+      <h3>💡 Insights</h3>
+      <div id="insights"></div>
+    </div>
+  </div>
+<div class="bottom-row">
+  <div class="card">
+    <h3>🎧 Music Suggestion</h3>
+    <div id="musicList">Select a mood to get music</div>
+  </div>
+
+  <div class="card">
+    <h3>🧘 Exercise</h3>
+    <p id="exerciseText">Select a mood to get suggestions</p>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="card">
+    <h3>📜 Mood History</h3>
+    <div id="history"></div>
+  </div>
+</div>
+
+  </div> 
+</div>  
+
+<script src="script.js"></script>
+</body>
+</html>
