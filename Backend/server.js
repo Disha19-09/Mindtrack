@@ -7,7 +7,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const app = express();
-const SECRET = "mysecretkey"; // later move to env
 
 app.use(cors());
 app.use(express.json());
@@ -36,7 +35,7 @@ function auth(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.userId = decoded.id;
 
@@ -113,7 +112,7 @@ app.post("/login", async (req, res) => {
 
     if (!isMatch) return res.status(400).send("Invalid password");
 
-    const token = jwt.sign({ id: user._id }, SECRET);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
     res.json({ token });
 
