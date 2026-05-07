@@ -6,13 +6,15 @@ body{
   align-items:center;
   font-family:Poppins;
   background: linear-gradient(135deg,#f3e8ff,#ede9fe);
+  background-image: url(B4.jpg);
+  background-size: cover;
 }
 
 .auth-card{
   width:350px;
   padding:30px;
   border-radius:20px;
-  background:white;
+  background:rgba(255, 245, 254, 0.9);
   box-shadow:0 10px 25px rgba(0,0,0,0.1);
   text-align:center;
 }
@@ -31,7 +33,7 @@ button{
   padding:12px;
   border:none;
   border-radius:10px;
-  background:#c084fc;
+  background:#5a4272;
   color:white;
   cursor:pointer;
 }
