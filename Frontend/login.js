@@ -1,3 +1,4 @@
+document.body.style.display = "block";
 const currentPage = window.location.pathname;
 
 if (currentPage === "/" || currentPage.includes("index.html")) {
