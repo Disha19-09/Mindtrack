@@ -11,12 +11,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// DB connect
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-// User Schema (moved up)
 const userSchema = new mongoose.Schema({
   username: String,
   email: String,
@@ -25,7 +23,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-// Mood Schema
 const moodSchema = new mongoose.Schema({
   mood: String,
   note: String,
@@ -38,7 +35,6 @@ const moodSchema = new mongoose.Schema({
 
 const Mood = mongoose.model("Mood", moodSchema);
 
-// Auth middleware
 function auth(req, res, next) {
   const token = req.headers.authorization;
 
@@ -55,7 +51,6 @@ function auth(req, res, next) {
   }
 }
 
-// Routes
 app.post("/signup", async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -126,7 +121,6 @@ app.get("/moods", auth, async (req, res) => {
   }
 });
 
-// Start server (fixed port)
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server running");
 });

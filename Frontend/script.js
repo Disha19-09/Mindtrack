@@ -1,6 +1,5 @@
 let selectedMood = "";
 
-// Select mood
 function selectMood(mood, event) {
   selectedMood = mood;
 
@@ -12,8 +11,6 @@ function selectMood(mood, event) {
 
   document.getElementById("message").innerText = "Selected: " + mood;
 }
-
-// Save mood
 function saveMood() {
   if (selectedMood === "") {
     alert("Please select a mood!");
@@ -36,12 +33,10 @@ function saveMood() {
   .then(res => res.text())
   .then(data => {
 
-    // show message
     document.getElementById("message").innerText = data;
     const feedback = getFeedback(selectedMood, note);
     document.getElementById("feedback").innerText = feedback;
 
-    // clear textarea
     document.getElementById("note").value = "";
 
     loadMoods();
@@ -54,7 +49,6 @@ function saveMood() {
   });
 }
 
-// Load mood history
 function loadMoods() {
     fetch("https://mindtrack-9n7p.onrender.com/moods", {
       headers: {
@@ -87,10 +81,8 @@ function loadMoods() {
     .catch(err => console.log(err));
 }
 
-// Load on page open
 window.onload = loadMoods;
 
-// 🔥 SMART (rule-based) feedback
 function getFeedback(mood, note) {
   note = note.toLowerCase();
 
@@ -116,7 +108,6 @@ function getFeedback(mood, note) {
   return "Take care 💙";
 }
 
-// Insights
 function showInsights(data) {
   const insightsDiv = document.getElementById("insights");
 
@@ -150,7 +141,6 @@ function showInsights(data) {
   `;
 }
 
-// Streak
 function calculateStreak(data) {
   if (data.length === 0) return 0;
 
@@ -171,7 +161,6 @@ function calculateStreak(data) {
   return streak;
 }
 
-// Weekly insights
 function showWeeklyInsights(data) {
   const weeklyDiv = document.getElementById("weekly");
 
@@ -212,11 +201,9 @@ function showWeeklyInsights(data) {
 }
 function updateStats(data) {
 
-  // total check-ins
   document.getElementById("checkins").innerText =
     data.length;
 
-  // count moods
   let count = {
     happy: 0,
     neutral: 0,
@@ -228,7 +215,6 @@ function updateStats(data) {
     count[entry.mood]++;
   });
 
-  // top mood
   let topMood = "None";
   let max = 0;
 
@@ -242,17 +228,14 @@ function updateStats(data) {
   document.getElementById("topMood").innerText =
     topMood;
 
-  // happy days
   document.getElementById("happyDays").innerText =
     count.happy;
 
-  // streak
   const streak = calculateStreak(data);
 
   document.getElementById("streakCount").innerText =
     streak;
 }
-// Chart
 function showChart(data) {
   const ctx = document.getElementById("moodChart").getContext("2d");
 

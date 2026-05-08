@@ -1,4 +1,3 @@
-// ✅ Only redirect if we're on the index/dashboard page
 const currentPage = window.location.pathname;
 
 if (currentPage.includes("index.html")) {
@@ -17,7 +16,7 @@ async function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch("http://localhost:3000/login", {
+  const res = await fetch("https://mindtrack-9n7p.onrender.com/login", {
     method:"POST",
     headers:{
       "Content-Type":"application/json"
@@ -56,10 +55,9 @@ async function signup() {
   const data = await res.text();
   document.getElementById("message").innerText = data;
 
-  // ✅ Redirect to login after signup succeeds
   if (res.ok) {
     setTimeout(() => {
       window.location.href = "login.html";
-    }, 1500); // wait 1.5s so user sees the success message
+    }, 1500); 
   }
 }

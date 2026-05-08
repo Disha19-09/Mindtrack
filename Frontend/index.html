@@ -9,11 +9,8 @@
 <body>
 
 <div class="dashboard">
-
-  <!-- 🔵 SIDEBAR -->
   <div class="sidebar">
     <h2>MindTrack 💙</h2>
-    
     <ul>
       <li>🏠 Home</li>
       <li>📊 Mood Graph</li>
@@ -25,19 +22,15 @@
     </ul>
   </div>
 
-  <!-- 🟡 MAIN -->
   <div class="main">
 
-    <!-- TOP TEXT -->
     <div class="topbar">
       <h3>Good morning 🌸</h3>
       <h1>How are you feeling today?</h1>
     </div>
 
-    <!-- 🔥 TOP ROW -->
     <div class="top-row">
 
-      <!-- MOOD CHECK -->
       <div class="card mood-card">
         <div class="moods">
           <button onclick="selectMood('happy',event)">😊 Happy</button>
@@ -54,7 +47,6 @@
         <p id="feedback"></p>
       </div>
 
-      <!-- STATS -->
       <div class="stats">
 
         <div class="card small">
@@ -79,7 +71,6 @@
 
       </div>
 
-      <!-- STREAK -->
       <div class="card streak-card">
         <h3>Your streak 🔥</h3>
         <p id="streak"></p>
@@ -89,7 +80,6 @@
 
   <div class="middle-row">
 
-    <!-- GRAPH -->
     <div class="card graph-card">
       <h3>📊 Mood Graph</h3>
       <div class="chart-container">
@@ -97,13 +87,11 @@
       </div>
     </div>
 
-    <!-- WEEKLY -->
     <div class="card">
       <h3>📅 Weekly Insights</h3>
       <div id="weekly"></div>
     </div>
 
-    <!-- INSIGHTS -->
     <div class="card">
       <h3>💡 Insights</h3>
       <div id="insights"></div>
@@ -120,7 +108,6 @@
     <p id="exerciseText">Select a mood to get suggestions</p>
   </div>
 
-  <!-- HISTORY -->
   <div class="card">
     <h3>📜 Mood History</h3>
     <div id="history"></div>
