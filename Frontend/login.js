@@ -1,6 +1,6 @@
 const currentPage = window.location.pathname;
 
-if (currentPage.includes("index.html")) {
+if (currentPage === "/" || currentPage.includes("index.html")) {
   if (!localStorage.getItem("token")) {
     window.location.href = "login.html";
   }
