@@ -9,7 +9,12 @@ body{
   background-image: url(B4.jpg);
   background-size: cover;
 }
-
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .auth-card{
   width:350px;
   padding:30px;
