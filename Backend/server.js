@@ -52,9 +52,17 @@ function auth(req, res, next) {
 }
 
 app.post("/signup", async (req, res) => {
-  const { username, email, password } = req.body;
+  let { username, email, password } = req.body;
 
   try {
+    email = email.trim().toLowerCase();
+
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).send("User already exists");
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
@@ -64,6 +72,7 @@ app.post("/signup", async (req, res) => {
     });
 
     res.send("User registered successfully");
+
   } catch (err) {
     console.log(err);
     res.status(500).send("Signup error");
@@ -71,8 +80,9 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  let { email, password } = req.body;
 
+  email = email.trim().toLowerCase();
   try {
     const user = await User.findOne({ email });
 
